@@ -4,7 +4,6 @@ endif
 
 function! test#javascript#mocha#test_file(file) abort
   return a:file =~# g:test#javascript#mocha#file_pattern
-    \ && test#javascript#has_package('mocha')
 endfunction
 
 function! test#javascript#mocha#build_position(type, position) abort
@@ -32,26 +31,15 @@ function! test#javascript#mocha#build_args(args) abort
 
   if test#base#no_colors()
     let args = ['--no-colors'] + args
-    let args = args + ['|', 'sed -e "s///g"']
+    let args = args + ['|', 'sed -e "s/
+//g"']
   endif
 
   return args
 endfunction
 
 function! test#javascript#mocha#executable() abort
-  if test#javascript#has_package('mocha-webpack')
-    if filereadable('node_modules/.bin/mocha-webpack')
-      return 'node_modules/.bin/mocha-webpack'
-    else
-      return 'mocha-webpack'
-    endif
-  else
-    if filereadable('node_modules/.bin/mocha')
-      return 'node_modules/.bin/mocha'
-    else
-      return 'mocha'
-    endif
-  endif
+  return '/verby/v/redom/code/test/mocha.sh'
 endfunction
 
 function! s:nearest_test(position) abort
