@@ -28,11 +28,6 @@ endfunction
 
 function! test#javascript#mocha#build_args(args) abort
   let args = a:args
-
-  if test#base#no_colors()
-    let args = ['--no-colors'] + args
-  endif
-
   return args
 endfunction
 
